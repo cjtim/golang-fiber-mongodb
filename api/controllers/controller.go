@@ -8,7 +8,7 @@ func HomeController(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{"msg": "Hello, world"})
 }
 func PingController(c *fiber.Ctx) error {
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{"test": "thank"})
+	return c.Status(fiber.StatusOK).SendString("pong")
 }
 func PostController(c *fiber.Ctx) error {
 	body := new(postBody)

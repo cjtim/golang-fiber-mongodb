@@ -1,36 +1,11 @@
 package collections
 
 import (
-	"context"
-	"log"
-	"os"
-
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type UserScheama struct {
-	name    string
-	lineUid string
-}
-
-type User struct {
-	Client *mongo.Client
-}
-
-func (s *User) FindAll() []UserScheama {
-	var result []UserScheama
-	collection := s.Client.Database(os.Getenv("MONGO_DB")).Collection("users")
-	filter := bson.M{}
-
-	cursor, err := collection.Find(context.TODO(), filter)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer cursor.Close(context.TODO())
-
-	if err = cursor.All(context.TODO(), &result); err != nil {
-		log.Fatal(err)
-	}
-	return result
+	ID      primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
+	Name    string             `json:"name,omitempty" bson:"name,omitempty"`
+	LineUid string             `json:"lineUid,omitempty" bson:"lineUid,omitempty"`
 }

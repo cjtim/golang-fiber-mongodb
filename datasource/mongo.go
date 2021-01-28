@@ -10,6 +10,7 @@ import (
 )
 
 // MongoClient for connect MongoDB
+// GoRoutine
 func MongoClient(datasourceChan chan *mongo.Client) {
 	client, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("MONGO_URI")))
 	if err != nil {
