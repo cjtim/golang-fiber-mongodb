@@ -66,6 +66,13 @@ func (s *Models) InsertOne(collectionName string, data interface{}) (interface{}
 	return insertResult.InsertedID, nil
 }
 
+func (s *Models) Update(collectionName string, data interface{}, filter interface{}) (*mongo.UpdateResult, error) {
+	collection := s.Client.Database(os.Getenv("MONGO_DB")).Collection(collectionName)
+	return collection.UpdateMany(context.TODO(), filter, bson.M{
+		"$set": data,
+	})
+}
+
 func (s *Models) Destroy(collectionName string, filter bson.M) error {
 	collection := s.Client.Database(os.Getenv("MONGO_DB")).Collection(collectionName)
 	if filter == nil {
